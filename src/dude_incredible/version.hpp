@@ -10,4 +10,4 @@ namespace dude_incredible::version {
   inline auto to_string() -> std::string {
     return std::format("{}-{}", version, git_commit_hash);
   }
-}
+}  // namespace dude_incredible::version
