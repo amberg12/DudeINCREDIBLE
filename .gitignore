@@ -1,0 +1,9 @@
+# Build Files
+*.d
+*.o
+build/**/*
+DudeINCREDIBLE
+
+# IDEA
+.idea/**/*
+compile_commands.json

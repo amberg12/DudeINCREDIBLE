@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Generate compile_commands.json
+
+bear -- make -j -B
