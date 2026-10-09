@@ -24,6 +24,7 @@ VERSION_FLAGS := \
 
 # Sources
 LIB_SRC := \
+  src/dude_incredible/uci/uci.cpp \
   src/dude_incredible/version.cpp
 LIB_OBJ := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(LIB_SRC))
 
