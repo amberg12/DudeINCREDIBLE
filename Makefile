@@ -78,3 +78,7 @@ help:
 clean:
 > $(RMDIR) $(BUILD_DIR)
 > rm $(EXE)
+
+.PHONY: fmt
+fmt:
+> clang-format -i $$(find src -type f \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' \))
