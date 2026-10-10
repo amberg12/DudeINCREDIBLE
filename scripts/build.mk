@@ -24,11 +24,13 @@ VERSION_FLAGS := \
 
 # Sources
 LIB_SRC := \
+  src/dude_incredible/chess/castling_rights.cpp \
+  src/dude_incredible/chess/position.cpp \
   src/dude_incredible/uci/uci.cpp \
   src/dude_incredible/version.cpp
 LIB_OBJ := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(LIB_SRC))
 
-DEPS := $(LIB_OBJ:.o=.d)
+DEPS := $(LIB_OBJ:.o=.d) $(BUILD_DIR)/src/main.d
 
 all: $(EXE)
 
