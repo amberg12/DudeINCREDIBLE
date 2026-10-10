@@ -1,6 +1,7 @@
 #pragma once
 
 #include "dude_incredible/chess/board.hpp"
+#include "dude_incredible/chess/castling_rights.hpp"
 
 #include <format>
 #include <stdexcept>
@@ -21,6 +22,30 @@ namespace dude_incredible::chess {
       return PositionParseError {std::format("Malformed Piece: {}", c)};
     }
 
+    [[nodiscard]] static constexpr auto malformed_perspective() -> PositionParseError {
+      return PositionParseError {"Malformed Perspective"};
+    }
+
+    [[nodiscard]] static constexpr auto malformed_frc_castling() -> PositionParseError {
+      return PositionParseError {"Malformed FRC Castling"};
+    }
+
+    [[nodiscard]] static constexpr auto malformed_castling() -> PositionParseError {
+      return PositionParseError {"Malformed Castling"};
+    }
+
+    [[nodiscard]] static constexpr auto malformed_en_passant() -> PositionParseError {
+      return PositionParseError {"Malformed EnPassant Square"};
+    }
+
+    [[nodiscard]] static constexpr auto malformed_half_move() -> PositionParseError {
+      return PositionParseError {"Malformed Half Move"};
+    }
+
+    [[nodiscard]] static constexpr auto malformed_full_move() -> PositionParseError {
+      return PositionParseError {"Malformed Full Move"};
+    }
+
   private:
     explicit PositionParseError(const std::string& msg)
         : std::runtime_error(msg) {
@@ -28,16 +53,18 @@ namespace dude_incredible::chess {
   };
 
   struct Position {
-    [[nodiscard]] static auto from_fen(std::string_view fen) -> Position;
+    [[nodiscard]] static auto from_fen(std::string_view fen, bool is_frc = false) -> Position;
 
   private:
     Position() = default;
 
     MailBox mail_box_;
     Color perspective_;
-    // Castling castling_rights_;
+    ColorArray<CastlingRights> castling_rights_ = {CastlingRights::empty(), CastlingRights::empty()};
     Square en_passant_;
-    // u8 half_move_ = 0;
-    // u32 full_move_ = 1;
+    u8 half_move_ = 0;
+    u32 full_move_ = 1;
+
+    bool is_frc_ = false;
   };
 }  // namespace dude_incredible::chess

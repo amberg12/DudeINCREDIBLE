@@ -1,5 +1,6 @@
 #pragma once
 #include <optional>
+#include <string_view>
 
 namespace dude_incredible::chess {
   struct Square {
@@ -23,6 +24,30 @@ namespace dude_incredible::chess {
       };
 
       if (!valid_coord(file) && !valid_coord(rank)) {
+        return std::nullopt;
+      }
+
+      return Square {file, rank};
+    }
+
+    [[nodiscard]] static constexpr auto parse(std::string_view sv) -> std::optional<Square> {
+      const auto valid_coord = [](i8 n) -> bool {
+        return 0 <= n && n < 8;
+      };
+
+      if (sv.size() != 2) {
+        return std::nullopt;
+      }
+
+      const i8 file = static_cast<i8>(sv[0] - 'a');
+
+      if (!valid_coord(file)) {
+        return std::nullopt;
+      }
+
+      const i8 rank = static_cast<i8>(sv[1] - '1');
+
+      if (!valid_coord(rank)) {
         return std::nullopt;
       }
 

@@ -22,6 +22,19 @@ namespace dude_incredible::chess {
     friend constexpr auto operator==(const Color& lhs, const Color& rhs) -> bool = default;
   };
 
+  template<class T>
+  struct ColorArray {
+    T inner[2];
+
+    constexpr auto operator[](Color perspective) const -> const T& {
+      return inner[perspective.raw];
+    }
+
+    constexpr auto operator[](Color perspective) -> T& {
+      return inner[perspective.raw];
+    }
+  };
+
   struct Piece {
     inline static constexpr usize count = 7;
 
