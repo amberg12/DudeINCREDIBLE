@@ -24,6 +24,7 @@ VERSION_FLAGS := \
 
 # Sources
 LIB_SRC := \
+  src/dude_incredible/chess/castling_rights.cpp \
   src/dude_incredible/chess/position.cpp \
   src/dude_incredible/uci/uci.cpp \
   src/dude_incredible/version.cpp

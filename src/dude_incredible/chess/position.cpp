@@ -170,6 +170,22 @@ namespace dude_incredible::chess {
       }
     }
 
+    result += ' ';
+    result += perspective_ == Color::w ? 'w' : 'b';
+
+    result += ' ';
+    result += castling_rights_[Color::w].to_string(Color::w, *this);
+    result += castling_rights_[Color::b].to_string(Color::b, *this);
+
+    result += ' ';
+    result += en_passant_.to_string();
+
+    result += ' ';
+    result += std::to_string(half_move_);
+
+    result += ' ';
+    result += std::to_string(full_move_);
+
     return result;
   }
 }  // namespace dude_incredible::chess

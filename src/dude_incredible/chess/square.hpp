@@ -1,5 +1,6 @@
 #pragma once
 #include <optional>
+#include <string>
 #include <string_view>
 
 namespace dude_incredible::chess {
@@ -58,6 +59,18 @@ namespace dude_incredible::chess {
       return 0x80;
     }
 
+    [[nodiscard]] auto to_string() const -> std::string {
+      if (is_none()) {
+        return "-";
+      }
+
+      std::string result;
+      result += static_cast<char>(to_file() + 'a');
+      result += static_cast<char>(to_rank() + '1');
+
+      return result;
+    }
+
     [[nodiscard]] constexpr auto is_some() const -> bool {
       return (raw & 0x80) == 0;
     }
@@ -68,6 +81,14 @@ namespace dude_incredible::chess {
 
     [[nodiscard]] constexpr auto to_index() const -> usize {
       return raw;
+    }
+
+    [[nodiscard]] constexpr auto to_file() const -> i8 {
+      return static_cast<i8>(raw % 8);
+    }
+
+    [[nodiscard]] constexpr auto to_rank() const -> i8 {
+      return static_cast<i8>(raw / 8);
     }
   };
 }  // namespace dude_incredible::chess
