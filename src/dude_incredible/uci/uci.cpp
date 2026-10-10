@@ -1,5 +1,6 @@
 #include "dude_incredible/uci/uci.hpp"
 
+#include "dude_incredible/chess/fens.hpp"
 #include "dude_incredible/version.hpp"
 
 namespace dude_incredible::uci {
@@ -25,13 +26,22 @@ namespace dude_incredible::uci {
   auto UciHandler::handle_position(utility::Tokenizer& toks) -> void {
     std::string fen, t;
 
-    while ((t = toks.next()).empty() == false || t == "moves") {
-      fen += t + " ";
+    t = toks.next();
+
+    if (t == "startpos") {
+      fen = fen::startpos;
+    } else if (t != "fen") {
+      uci_error("position", "Missing fen");
+      return;
+    } else {
+      while ((t = toks.next()).empty() == false || t == "moves") {
+        fen += t + " ";
+      }
     }
 
     try {
       position_ = chess::Position::from_fen(fen);
-    } catch (const chess::PositionError& e) {
+    } catch (const chess::PositionParseError& e) {
       uci_error("position", "Parsing Error: {}", e.what());
       return;
     }

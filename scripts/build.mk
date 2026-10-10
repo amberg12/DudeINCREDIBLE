@@ -29,7 +29,7 @@ LIB_SRC := \
   src/dude_incredible/version.cpp
 LIB_OBJ := $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(LIB_SRC))
 
-DEPS := $(LIB_OBJ:.o=.d)
+DEPS := $(LIB_OBJ:.o=.d) $(BUILD_DIR)/src/main.d
 
 all: $(EXE)
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <optional>
 
 namespace dude_incredible::chess {
   struct Square {
@@ -12,8 +13,20 @@ namespace dude_incredible::chess {
         : raw(raw) {
     }
 
-    constexpr Square(i8 rank, i8 file)
+    constexpr Square(i8 file, i8 rank)
         : raw(rank * 8 + file) {
+    }
+
+    [[nodiscard]] static constexpr auto safe_construct_square(i8 file, i8 rank) -> std::optional<Square> {
+      const auto valid_coord = [](i8 n) -> bool {
+        return 0 <= n && n < 8;
+      };
+
+      if (!valid_coord(file) && !valid_coord(rank)) {
+        return std::nullopt;
+      }
+
+      return Square {file, rank};
     }
 
     static constexpr auto none() -> Square {

@@ -18,6 +18,37 @@ namespace dude_incredible::chess {
         : raw(get_color_mask(perspective) | get_piece_mask(piece)) {
     }
 
+    [[nodiscard]] static constexpr auto parse(char c) -> std::optional<Place> {
+      switch (c) {
+      case 'P':
+        return Place {Color::w, Piece::p};
+      case 'N':
+        return Place {Color::w, Piece::n};
+      case 'B':
+        return Place {Color::w, Piece::b};
+      case 'R':
+        return Place {Color::w, Piece::r};
+      case 'Q':
+        return Place {Color::w, Piece::q};
+      case 'K':
+        return Place {Color::w, Piece::k};
+      case 'p':
+        return Place {Color::b, Piece::p};
+      case 'n':
+        return Place {Color::b, Piece::n};
+      case 'b':
+        return Place {Color::b, Piece::b};
+      case 'r':
+        return Place {Color::b, Piece::r};
+      case 'q':
+        return Place {Color::b, Piece::q};
+      case 'k':
+        return Place {Color::b, Piece::k};
+      default:
+        return std::nullopt;
+      }
+    }
+
     [[nodiscard]] constexpr auto color() const -> Color {
       return (raw & color_mask) == 0 ? Color::w : Color::b;
     }

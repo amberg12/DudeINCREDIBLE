@@ -1,4 +1,5 @@
 #pragma once
+#include "dude_incredible/chess/fens.hpp"
 #include "dude_incredible/chess/position.hpp"
 #include "dude_incredible/utility/tokenizer.hpp"
 
@@ -24,6 +25,6 @@ namespace dude_incredible::uci {
       uci_error(cmd, "Unknown Command");
     }
 
-    chess::Position position_;
+    chess::Position position_ = chess::Position::from_fen(fen::startpos);
   };
 }  // namespace dude_incredible::uci

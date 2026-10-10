@@ -2,6 +2,7 @@
 
 #include "dude_incredible/chess/board.hpp"
 
+#include <format>
 #include <stdexcept>
 #include <string_view>
 
@@ -10,6 +11,14 @@ namespace dude_incredible::chess {
   public:
     [[nodiscard]] static constexpr auto bad_coordinates() -> PositionParseError {
       return PositionParseError {"Fen Coordinates Do Not Add Up"};
+    }
+
+    [[nodiscard]] static constexpr auto malformed_fen() -> PositionParseError {
+      return PositionParseError {"Malformed Fen"};
+    }
+
+    [[nodiscard]] static constexpr auto malformed_piece(char c) -> PositionParseError {
+      return PositionParseError {std::format("Malformed Piece: {}", c)};
     }
 
   private:
