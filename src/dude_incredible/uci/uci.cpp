@@ -9,6 +9,8 @@ namespace dude_incredible::uci {
 
     if (command == "uci") {
       handle_uci(toks);
+    } else if (command == "position") {
+      handle_position(toks);
     } else if (!command.empty()) {
       uci_bad_cmd(command);
     }
@@ -18,5 +20,23 @@ namespace dude_incredible::uci {
     std::println("id name DudeINCREDIBLE {}", version::to_string());
     std::println("id author Amber Goulding");
     std::println("uciok");
+  }
+
+  auto UciHandler::handle_position(utility::Tokenizer& toks) -> void {
+    std::string fen, t;
+
+    while ((t = toks.next()).empty() == false || t == "moves") {
+      fen += t + " ";
+    }
+
+    try {
+      position_ = chess::Position::from_fen(fen);
+    } catch (const chess::PositionError& e) {
+      uci_error("position", "Parsing Error: {}", e.what());
+      return;
+    }
+  }
+
+  auto UciHandler::handle_d(utility::Tokenizer&) -> void {
   }
 }  // namespace dude_incredible::uci
