@@ -61,5 +61,9 @@ namespace dude_incredible::chess {
     [[nodiscard]] constexpr auto is_none() const -> bool {
       return !is_some();
     }
+
+    /* implicit */ [[nodiscard]] operator Underlying() const {
+      return raw;
+    }
   };
 }  // namespace dude_incredible::chess

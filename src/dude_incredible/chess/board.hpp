@@ -4,6 +4,8 @@
 #include "dude_incredible/chess/square.hpp"
 
 #include <array>
+#include <locale>
+#include <utility>
 
 namespace dude_incredible::chess {
   struct Place {
@@ -47,6 +49,29 @@ namespace dude_incredible::chess {
       default:
         return std::nullopt;
       }
+    }
+
+    [[nodiscard]] constexpr auto to_char() const -> char {
+      const char result = [&] {
+        switch (piece()) {
+        case Piece::p:
+          return 'P';
+        case Piece::n:
+          return 'N';
+        case Piece::b:
+          return 'B';
+        case Piece::r:
+          return 'R';
+        case Piece::q:
+          return 'Q';
+        case Piece::k:
+          return 'K';
+        default:
+          std::unreachable();
+        }
+      }();
+
+      return color() == Color::w ? result : static_cast<char>(std::tolower(result));
     }
 
     [[nodiscard]] constexpr auto color() const -> Color {

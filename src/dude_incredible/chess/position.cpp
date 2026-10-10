@@ -138,4 +138,38 @@ namespace dude_incredible::chess {
 
     return result;
   }
+
+  auto Position::to_fen() const -> std::string {
+    std::string result;
+
+    for (i8 rank = 7; rank >= 0; --rank) {
+      char accum = '0';
+
+      for (i8 file = 0; file < 8; ++file) {
+        const auto square = Square {file, rank};
+        const auto place = mail_box_[square];
+
+        if (place.is_some()) {
+          if (accum != '0') {
+            result += accum;
+          }
+
+          result += place.to_char();
+          accum = '0';
+        } else {
+          accum += 1;
+        }
+      }
+
+      if (accum != '0') {
+        result += accum;
+      }
+
+      if (rank != 0) {
+        result += '/';
+      }
+    }
+
+    return result;
+  }
 }  // namespace dude_incredible::chess

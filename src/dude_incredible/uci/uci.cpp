@@ -12,6 +12,8 @@ namespace dude_incredible::uci {
       handle_uci(toks);
     } else if (command == "position") {
       handle_position(toks);
+    } else if (command == "d") {
+      handle_d(toks);
     } else if (!command.empty()) {
       uci_bad_cmd(command);
     }
@@ -48,5 +50,6 @@ namespace dude_incredible::uci {
   }
 
   auto UciHandler::handle_d(utility::Tokenizer&) -> void {
+    std::println("FEN: {}", position_.to_fen());
   }
 }  // namespace dude_incredible::uci

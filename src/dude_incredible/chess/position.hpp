@@ -55,6 +55,8 @@ namespace dude_incredible::chess {
   struct Position {
     [[nodiscard]] static auto from_fen(std::string_view fen, bool is_frc = false) -> Position;
 
+    [[nodiscard]] auto to_fen() const -> std::string;
+
   private:
     Position() = default;
 
